@@ -189,8 +189,8 @@
             formMessage.className = 'is-hidden';
 
             const code = codeInput.value.trim();
-            if (!/^\d{8}$/.test(code)) {
-                showMessage('Zadej prosím platný 8místný kód složený pouze z číslic.');
+            if (!/^[A-Za-z0-9]{8}$/.test(code)) {
+                showMessage('Zadej prosím platný 8místný kód (bez mezer).');
                 codeInput.focus();
                 return;
             }
