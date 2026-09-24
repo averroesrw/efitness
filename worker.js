@@ -152,7 +152,7 @@ async function handleVerify(request, env) {
     }
 
     const code = typeof body.code === 'string' ? body.code.trim().toUpperCase() : ''
-    if (!/^[A-Za-z0-9]{8}$/.test(code)) {
+    if (!/^[A-Z0-9]{8}$/.test(code)) {
         return jsonResponse({ success: false, message: 'Kód musí mít 8 alfanumerických znaků.' }, 400)
     }
 
