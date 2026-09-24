@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="cs" class="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Odemkněte svůj digitální fitness trénink." />
+    <title>eFitness | Odemkni svůj trénink</title>
+
+    <!-- Tailwind CSS přes CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        body {
+            background:
+                radial-gradient(circle at 15% 10%, rgba(234, 179, 8, 0.13), transparent 28rem),
+                radial-gradient(circle at 85% 90%, rgba(234, 179, 8, 0.08), transparent 24rem),
+                #111827;
+        }
+
+        .panel-glow {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(234, 179, 8, 0.08);
+        }
+
+        .content-placeholder {
+            min-height: 16rem;
+            background: linear-gradient(135deg, rgba(31, 41, 55, 0.95), rgba(17, 24, 39, 0.95));
+            border: 1px dashed rgba(234, 179, 8, 0.45);
+        }
+
+        .is-hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-gray-200 antialiased">
+    <main class="mx-auto flex min-h-screen w-full max-w-5xl items-center justify-center px-4 py-10 sm:px-6 lg:px-8">
+        <!-- Přihlašovací fáze -->
+        <section id="login-section" class="w-full max-w-md">
+            <div class="panel-glow rounded-3xl border border-gray-700 bg-gray-800/90 p-6 backdrop-blur sm:p-9">
+                <div class="mb-8 text-center">
+                    <div class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-yellow-400 text-2xl font-black text-gray-950 shadow-lg shadow-yellow-400/20"
+                        aria-hidden="true">eF</div>
+                    <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-yellow-400">eFitness</p>
+                    <h1 class="text-3xl font-extrabold tracking-tight text-yellow-400 sm:text-4xl">Odemkni svůj trénink
+                    </h1>
+                    <p class="mt-4 text-sm leading-6 text-gray-300">Zadej svůj 8místný kód z potvrzení objednávky a
+                        zpřístupni si zakoupený obsah.</p>
+                </div>
+
+                <form id="code-form" class="space-y-5" novalidate>
+                    <div>
+                        <label for="access-code" class="mb-2 block text-sm font-semibold text-gray-200">Přístupový
+                            kód</label>
+                        <input id="access-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code"
+                            maxlength="8" pattern="[A-Za-z0-9]{8}" placeholder="12345678"
+                            class="w-full rounded-xl border border-gray-600 bg-gray-900 px-4 py-3 text-center text-lg font-bold tracking-[0.35em] text-white outline-none transition placeholder:font-normal placeholder:tracking-normal placeholder:text-gray-600 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/30"
+                            aria-describedby="form-message" required />
+                    </div>
+
+                    <div id="form-message" class="is-hidden rounded-xl px-4 py-3 text-sm font-medium" role="alert"
+                        aria-live="polite"></div>
+
+                    <button id="submit-button" type="submit"
+                        class="flex w-full items-center justify-center rounded-xl bg-yellow-400 px-5 py-3.5 font-extrabold text-gray-950 shadow-lg shadow-yellow-400/10 transition hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:cursor-not-allowed disabled:opacity-60">
+                        <span id="submit-label">Potvrdit kód</span>
+                        <span id="submit-loading" class="is-hidden">Ověřuji kód...</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Obsah pro trénink na hubnutí -->
+        <section id="content-hubnuti" class="is-hidden w-full" aria-labelledby="hubnuti-title">
+            <div class="panel-glow rounded-3xl border border-gray-700 bg-gray-800/95 p-6 sm:p-10">
+                <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-yellow-400">Tvůj program</p>
+                <h2 id="hubnuti-title" class="text-3xl font-extrabold tracking-tight text-yellow-400 sm:text-4xl">
+                    Trénink na hubnutí</h2>
+                <p class="mt-4 max-w-2xl leading-7 text-gray-200">Vítej u svého programu. Pravidelnost, správná technika
+                    a postupné zvyšování intenzity tě posunou k tvému cíli.</p>
+                <div
+                    class="content-placeholder mt-8 flex flex-col items-center justify-center rounded-2xl p-8 text-center">
+                    <span class="mb-4 text-4xl" aria-hidden="true">▶</span>
+                    <h3 class="text-xl font-bold text-yellow-400">Video a tabulka cviků</h3>
+                    <p class="mt-2 max-w-md text-sm leading-6 text-gray-400">Sem vlož video tréninku, případně přehled
+                        cviků a doporučený počet sérií.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Obsah pro trénink na nabrání -->
+        <section id="content-nabrani" class="is-hidden w-full" aria-labelledby="nabrani-title">
+            <div class="panel-glow rounded-3xl border border-gray-700 bg-gray-800/95 p-6 sm:p-10">
+                <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-yellow-400">Tvůj program</p>
+                <h2 id="nabrani-title" class="text-3xl font-extrabold tracking-tight text-yellow-400 sm:text-4xl">
+                    Trénink na nabrání</h2>
+                <p class="mt-4 max-w-2xl leading-7 text-gray-200">Vítej u svého programu. Zaměř se na kvalitní
+                    provedení, dostatek energie a konzistentní progres.</p>
+                <div
+                    class="content-placeholder mt-8 flex flex-col items-center justify-center rounded-2xl p-8 text-center">
+                    <span class="mb-4 text-4xl" aria-hidden="true">▶</span>
+                    <h3 class="text-xl font-bold text-yellow-400">Video a tabulka cviků</h3>
+                    <p class="mt-2 max-w-md text-sm leading-6 text-gray-400">Sem vlož video tréninku, případně přehled
+                        cviků a doporučený počet sérií.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ultimátní bundle -->
+        <section id="content-bundle" class="is-hidden w-full" aria-labelledby="bundle-title">
+            <div class="panel-glow rounded-3xl border border-yellow-400/30 bg-gray-800/95 p-6 sm:p-10">
+                <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-yellow-400">Kompletní přístup</p>
+                <h2 id="bundle-title" class="text-3xl font-extrabold tracking-tight text-yellow-400 sm:text-4xl">
+                    Ultimální bundle</h2>
+                <p class="mt-4 leading-7 text-gray-200">Vítej v kompletním balíčku. Níže najdeš oba tréninkové programy
+                    na jednom místě.</p>
+
+                <div class="mt-8 grid gap-6 lg:grid-cols-2">
+                    <article class="rounded-2xl border border-gray-700 bg-gray-900/60 p-5">
+                        <h3 class="text-xl font-bold text-yellow-400">Trénink na hubnutí</h3>
+                        <p class="mt-2 text-sm leading-6 text-gray-300">Program zaměřený na spalování energie, kondici a
+                            postupný progres.</p>
+                        <div
+                            class="content-placeholder mt-5 flex min-h-48 items-center justify-center rounded-xl p-6 text-center text-sm text-gray-400">
+                            Video / tabulka cviků pro hubnutí</div>
+                    </article>
+                    <article class="rounded-2xl border border-gray-700 bg-gray-900/60 p-5">
+                        <h3 class="text-xl font-bold text-yellow-400">Trénink na nabrání</h3>
+                        <p class="mt-2 text-sm leading-6 text-gray-300">Program zaměřený na sílu, svalový růst a
+                            kvalitní regeneraci.</p>
+                        <div
+                            class="content-placeholder mt-5 flex min-h-48 items-center justify-center rounded-xl p-6 text-center text-sm text-gray-400">
+                            Video / tabulka cviků pro nabrání</div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const WORKER_URL = 'https://efitness-auth-worker.ota-czk.workers.dev/';
+
+        const form = document.getElementById('code-form');
+        const codeInput = document.getElementById('access-code');
+        const formMessage = document.getElementById('form-message');
+        const submitButton = document.getElementById('submit-button');
+        const submitLabel = document.getElementById('submit-label');
+        const submitLoading = document.getElementById('submit-loading');
+        const loginSection = document.getElementById('login-section');
+        const contentSections = {
+            hubnuti: document.getElementById('content-hubnuti'),
+            nabrani: document.getElementById('content-nabrani'),
+            bundle: document.getElementById('content-bundle')
+        };
+
+        function showMessage(message, type = 'error') {
+            formMessage.textContent = message;
+            formMessage.className = type === 'error'
+                ? 'rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm font-medium text-red-300'
+                : 'rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm font-medium text-green-300';
+        }
+
+        function setLoading(isLoading) {
+            submitButton.disabled = isLoading;
+            submitLabel.classList.toggle('is-hidden', isLoading);
+            submitLoading.classList.toggle('is-hidden', !isLoading);
+        }
+
+        function showProduct(productType) {
+            Object.values(contentSections).forEach((section) => section.classList.add('is-hidden'));
+            contentSections[productType].classList.remove('is-hidden');
+            loginSection.classList.add('is-hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            formMessage.className = 'is-hidden';
+
+            const code = codeInput.value.trim();
+            if (!/^\d{8}$/.test(code)) {
+                showMessage('Zadej prosím platný 8místný kód složený pouze z číslic.');
+                codeInput.focus();
+                return;
+            }
+
+            setLoading(true);
+            try {
+                const response = await fetch(`${WORKER_URL}/verify`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code })
+                });
+
+                let data = {};
+                try {
+                    data = await response.json();
+                } catch (parseError) {
+                    data = {};
+                }
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Kód se nepodařilo ověřit.');
+                }
+
+                const productType = String(data.productType || data.type || data.product || '').toLowerCase();
+                if (!Object.prototype.hasOwnProperty.call(contentSections, productType)) {
+                    throw new Error('Odpověď Workeru obsahuje neznámý typ produktu.');
+                }
+
+                showProduct(productType);
+            } catch (error) {
+                showMessage(error.message || 'Nastala chyba při ověřování kódu. Zkus to prosím znovu.');
+            } finally {
+                setLoading(false);
+            }
+        });
+    </script>
+</body>
+
+</html>
